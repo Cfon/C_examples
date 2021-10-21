@@ -10,16 +10,9 @@ int main()
   setlocale(LC_ALL, "russian");
 
   char *str = "Привет мир!";
-  size_t len = strlen(str) * sizeof(str[0]);  //  
-  char *mbstr = (char *) malloc(len + 1);
+  size_t len = strlen(str);     
   
-  // convert wchar_t string to utf8 string
-  // int ret = wcstombs(mbstr, wcstr, len + 1); 
-
-  // printf("Characters converted = %d\n", ret);
-  printf("Byte character = %s\n", str);
-  printf("Символы: %d\n", strlen(str));
-  printf("%c\n", str[0]); 
-  
-  free(mbstr);
+  printf("\nByte string = %s\n", str);
+  printf("Символов: %d\n", len);
+  printf("Первый символ: %c\n\n", str[0]);   
 }
