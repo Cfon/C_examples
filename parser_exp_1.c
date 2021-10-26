@@ -16,6 +16,7 @@ struct parser_t {
 double eval_exp(struct parser_t *parser);
 double eval_exp1(struct parser_t *parser);
 double eval_exp2(struct parser_t *parser);
+double eval_exp3(struct parser_t *parser);
 double atom(struct parser_t *parser);
 void get_token(struct parser_t *parser);
 void error(enum error_t err_code);
@@ -67,7 +68,7 @@ double eval_exp1(struct parser_t *parser)
 
   while ((op = *parser->tok_name) == '+' || op == '-') {
     get_token(parser);
-    double temp = atom(parser);    
+    double temp = eval_exp2(parser);    
     switch (op) {
     case '+':
       result += temp;
@@ -83,7 +84,34 @@ double eval_exp1(struct parser_t *parser)
 double eval_exp2(struct parser_t *parser)
 {
   double result = atom(parser);
-  /* code */
+  char op;
+  
+  while ((op = *parser->tok_name) == '*' || op == '/' || op == '%') {
+    get_token(parser);
+    double temp = atom(parser);        
+    switch (op) {
+      case '*':
+        result *= temp;
+        break;
+      case '/':
+        if (temp == 0.0) {
+          error(DIVZERO);
+          return 0.0;
+        }
+        result /= temp;
+        break;
+       case '%':
+        result = (int)result % (int)temp;
+        break;
+    }
+  }
+  
+  return result;
+}
+
+double eval_exp3(struct parser_t *parser) 
+{
+  double result = atom(parser);
   return result;
 }
 
