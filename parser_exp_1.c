@@ -7,23 +7,23 @@
 enum types_t { UNDEFINED, OPERATOR, NUMBER };
 enum error_t { SYNERROR, PARENS, NOEXP, DIVZERO };
 
-struct parser_ {
+struct parser_t {
   char *exp;
   char tok_name[80];
   enum types_t tok_type;
 };
 
-double eval_exp(struct parser_ *parser);
-double eval_exp1(struct parser_ *parser);
-double eval_exp2(struct parser_ *parser);
-double atom(struct parser_ *parser);
-void get_token(struct parser_ *parser);
+double eval_exp(struct parser_t *parser);
+double eval_exp1(struct parser_t *parser);
+double eval_exp2(struct parser_t *parser);
+double atom(struct parser_t *parser);
+void get_token(struct parser_t *parser);
 void error(enum error_t err_code);
 bool isdelim(char c);
 
 int main()
 {  
-  struct parser_ parser;  
+  struct parser_t parser;  
   char exp[80];  
   
   printf("Enter a period to stop.\n");
@@ -40,7 +40,7 @@ int main()
   }
 }
 
-double eval_exp(struct parser_ *parser)
+double eval_exp(struct parser_t *parser)
 {
   double result = 0.0;  
   
@@ -60,7 +60,7 @@ double eval_exp(struct parser_ *parser)
   return result;
 }
 
-double eval_exp1(struct parser_ *parser)
+double eval_exp1(struct parser_t *parser)
 {    
   double result = eval_exp2(parser);
   char op;  
@@ -80,13 +80,14 @@ double eval_exp1(struct parser_ *parser)
   return result;
 }
 
-double eval_exp2(struct parser_ *parser)
+double eval_exp2(struct parser_t *parser)
 {
   double result = atom(parser);
   /* code */
+  return result;
 }
 
-double atom(struct parser_ *parser)
+double atom(struct parser_t *parser)
 {
   double result = 0.0;  
   switch (parser->tok_type) {  
@@ -101,7 +102,7 @@ double atom(struct parser_ *parser)
   return result;
 }
 
-void get_token(struct parser_ *parser)
+void get_token(struct parser_t *parser)
 {
   char *temp = parser->tok_name;
   *temp = '\0';
