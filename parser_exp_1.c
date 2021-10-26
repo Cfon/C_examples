@@ -16,7 +16,6 @@ struct parser_t {
 double eval_exp(struct parser_t *parser);
 double eval_exp1(struct parser_t *parser);
 double eval_exp2(struct parser_t *parser);
-double eval_exp3(struct parser_t *parser);
 double atom(struct parser_t *parser);
 void get_token(struct parser_t *parser);
 void error(enum error_t err_code);
@@ -106,12 +105,6 @@ double eval_exp2(struct parser_t *parser)
     }
   }
   
-  return result;
-}
-
-double eval_exp3(struct parser_t *parser) 
-{
-  double result = atom(parser);
   return result;
 }
 
