@@ -64,7 +64,7 @@ double eval_exp(struct parser_t *parser)
 
 double eval_exp1(struct parser_t *parser)
 {    
-  /* Обработка операций +,- */
+  /* РћР±СЂР°Р±РѕС‚РєР° РѕРїРµСЂР°С†РёР№ +,- */
   double result = eval_exp2(parser);
   char op;  
 
@@ -85,7 +85,7 @@ double eval_exp1(struct parser_t *parser)
 
 double eval_exp2(struct parser_t *parser)
 {
-  /* Обработка операций *,/,% */
+  /* РћР±СЂР°Р±РѕС‚РєР° РѕРїРµСЂР°С†РёР№ *,/,% */
   double result = eval_exp3(parser);
   char op;
   
@@ -114,7 +114,7 @@ double eval_exp2(struct parser_t *parser)
 
 double eval_exp3(struct parser_t *parser)
 {
-  /* обработка возведения в степень */
+  /* РѕР±СЂР°Р±РѕС‚РєР° РІРѕР·РІРµРґРµРЅРёСЏ РІ СЃС‚РµРїРµРЅСЊ */
   double result = atom(parser);
   char op;
   
