@@ -16,6 +16,8 @@ struct parser_t {
 double eval_exp(struct parser_t *parser);
 double eval_exp1(struct parser_t *parser);
 double eval_exp2(struct parser_t *parser);
+double eval_exp3(struct parser_t *parser);
+
 double atom(struct parser_t *parser);
 void get_token(struct parser_t *parser);
 void error(enum error_t err_code);
@@ -62,6 +64,7 @@ double eval_exp(struct parser_t *parser)
 
 double eval_exp1(struct parser_t *parser)
 {    
+  /* Обработка операций +,- */
   double result = eval_exp2(parser);
   char op;  
 
@@ -82,12 +85,13 @@ double eval_exp1(struct parser_t *parser)
 
 double eval_exp2(struct parser_t *parser)
 {
-  double result = atom(parser);
+  /* Обработка операций *,/,% */
+  double result = eval_exp3(parser);
   char op;
   
   while ((op = *parser->tok_name) == '*' || op == '/' || op == '%') {
     get_token(parser);
-    double temp = atom(parser);        
+    double temp = eval_exp3(parser);        
     switch (op) {
       case '*':
         result *= temp;
@@ -106,6 +110,28 @@ double eval_exp2(struct parser_t *parser)
   }
   
   return result;
+}
+
+double eval_exp3(struct parser_t *parser)
+{
+  /* обработка возведения в степень */
+  double result = atom(parser);
+  char op;
+  
+  while ((op = *parser->tok_name) == '^') {
+    get_token(parser);
+    int y = (int)atom(parser);        
+    if (y == 0) {
+      result = 1.0;
+      break;
+    }
+    double x = result;
+    for (int i = y-1; i > 0; i--) {
+      result *= x;
+    }
+  }  
+  
+  return result; 
 }
 
 double atom(struct parser_t *parser)
