@@ -14,7 +14,7 @@ int main()
   int *i = &x[0];
   int *k = &x[4];
   ptrdiff_t j = k - i;
-  printf("%p, %p, %d\n", i,k,j);
+  printf("%p, %p, %d\n", i,k,j); // j == 4
 
 }
 
