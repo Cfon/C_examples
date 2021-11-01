@@ -18,3 +18,4 @@ int len(char *s)
     i++;
   return i;
 }
+
